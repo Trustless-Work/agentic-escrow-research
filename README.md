@@ -26,6 +26,20 @@ This repository is a public research initiative. It is meant to host:
 
 It is not a production protocol commitment. Research conclusions should be validated before they are promoted into Trustless Work's core product, API, SDK, MCP, or smart-contract roadmap.
 
+## How to Read This Repo
+
+This repository separates evidence, proposals, and product commitments.
+
+| Artifact | Meaning |
+| --- | --- |
+| Use case | A concrete scenario or implementation example that helps test the research thesis. |
+| Research note | Non-normative evidence, operational observations, version comparisons, or source material that may inform later proposals. |
+| RFC | Request for Comments: a structured proposal meant for review, critique, and iteration. |
+| Accepted RFC | A research output strong enough to guide experiments or implementation thinking, but not automatically a production roadmap item. |
+| Production commitment | A separate Trustless Work decision involving product, engineering, security, compliance, and roadmap approval. |
+
+An RFC is therefore not the same thing as an approved product change. It is a disciplined way to expose a proposal to public review before anything becomes canonical.
+
 ## Starting Points
 
 | File | Purpose |
