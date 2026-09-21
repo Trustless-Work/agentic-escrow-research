@@ -158,6 +158,22 @@ Candidate operations:
 
 These are product-level concepts, not final API names.
 
+Implementation evidence now adds a version-aware interface lesson. V1 production incidents and the historical Trustless Work MCP surface should be compared against V2 beta/testnet behavior rather than discarded as legacy detail.
+
+The emerging principle is:
+
+> **Version-specific workarounds are evidence; durable agent-facing abstractions should encode the underlying state, authority, signer, and recovery problem instead.**
+
+In particular, agent-facing systems may need to distinguish:
+
+- chain submission from read-model/indexer convergence;
+- human signing from policy-constrained automated signing;
+- an operation existing in the schema from a caller actually being authorized to use it;
+- retryable lag from failed or ambiguous settlement;
+- invalid input from a legitimate empty result.
+
+See the [agent-facing tool-schema research note](rfcs/0005-agent-facing-tool-schema-production-evidence.md) and RFC 0004 for the evolving evidence model.
+
 ## 8. x402 and Escrow
 
 x402-style payment flows are relevant for machine-native payments. They may be especially strong for immediate, low-risk payments for APIs, content, compute, or digital services.
@@ -229,6 +245,8 @@ No serious agentic payment architecture can ignore these questions.
 12. How should systems bound economic-decision risk when exfiltration risk is already constrained?
 13. How should agent systems distinguish counterparty risk from payment-infrastructure risk?
 14. What machine-readable recovery semantics are required when direct-payment settlement is ambiguous?
+15. Which V1 production failures should become explicit V2 regression tests?
+16. How should agent-facing tools expose signer mode, capability availability, chain state and read-model state without leaking backend-specific mechanics?
 
 ## 11. Conclusion
 
