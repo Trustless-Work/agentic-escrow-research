@@ -40,6 +40,7 @@ It is not a production protocol commitment. Research conclusions should be valid
 | [use-cases/](use-cases/) | Use-case library and implementation evidence |
 | [use-cases/nirium-bounded-milestone-payouts.md](use-cases/nirium-bounded-milestone-payouts.md) | Real-world bounded-authority milestone payout example |
 | [use-cases/nirium-treasury-missing-parameter.md](use-cases/nirium-treasury-missing-parameter.md) | Authority-by-missing-parameter treasury example |
+| [use-cases/nirium-direct-x402-payment.md](use-cases/nirium-direct-x402-payment.md) | Verified direct-payment case where escrow adds no value |
 
 ## Research Tracks
 
@@ -62,6 +63,8 @@ It is not a production protocol commitment. Research conclusions should be valid
 - What failure paths are required if an agent, merchant, oracle, verifier, or user disappears?
 - Which dangerous economic actions can be made structurally inexpressible to an automated actor?
 - How should we distinguish exfiltration authority from economic-decision authority?
+- How should payment-infrastructure/dependency risk be modeled separately from counterparty/fulfillment risk?
+- What recovery semantics do unattended agents need when settlement is ambiguous?
 
 ## Current Working Model
 
@@ -87,6 +90,12 @@ A second Nirium implementation adds another form of bounded authority: [authorit
 > **Make unauthorized economic actions inexpressible, not merely disallowed.**
 
 Together, these examples suggest that safe agentic finance depends both on **pre-authorized objects an agent may act upon** and on **capabilities the agent is never given in the first place**.
+
+A third Nirium contribution documents the boundary where escrow should be bypassed: [a verified direct x402 settlement](use-cases/nirium-direct-x402-payment.md) for a small, immediate digital purchase.
+
+> **Do not introduce conditional settlement when there is no meaningful condition to protect.**
+
+That evidence also separates **counterparty/fulfillment risk** from **payment-infrastructure/dependency risk**. Escrow addresses the former; facilitator health, retry safety, reconciliation and ambiguous settlement require their own controls.
 
 ## Relationship to Trustless Work
 
