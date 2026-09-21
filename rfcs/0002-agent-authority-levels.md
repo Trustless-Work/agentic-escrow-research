@@ -65,6 +65,28 @@ This suggests a useful Level 3 design principle:
 
 This is implementation evidence, not yet a general recommendation that approval and release should be automated together.
 
+## Implementation Evidence: Authority by Missing Parameter
+
+The [Nirium treasury rebalancing use case](../use-cases/nirium-treasury-missing-parameter.md) contributes a second bounded-authority pattern. Unlike the milestone-payout example, this flow is not an escrow or payment-to-counterparty flow. It concerns recurring automated action over already-owned capital.
+
+The RebalanceManager is constrained at two layers:
+
+1. **Scope:** its signing authority is limited to a specific contract/action surface.
+2. **Capability:** the callable rebalance operation does not expose an arbitrary beneficiary parameter for the automated actor to populate.
+
+The research principle is:
+
+> **Make unauthorized economic actions inexpressible, not merely disallowed.**
+
+This suggests that authority models should describe not only what an agent is permitted to do, but also what choices the interface or contract makes impossible to express.
+
+It also exposes an important risk distinction:
+
+- **Exfiltration risk:** can the agent direct funds to an attacker-chosen or otherwise arbitrary beneficiary?
+- **Economic-decision risk:** can the agent make permitted actions that still cause loss through allocation, timing, slippage, churn, or other poor decisions?
+
+Reducing exfiltration authority does not by itself guarantee capital safety.
+
 ## Safety Requirements
 
 Any delegated economic operation should define:
@@ -77,7 +99,10 @@ Any delegated economic operation should define:
 - required evidence;
 - revocation path;
 - human override path;
-- allowed escrow objects or pre-authorized commitments the delegated signer may act upon.
+- allowed escrow objects or pre-authorized commitments the delegated signer may act upon;
+- callable capabilities and parameters available to the delegated signer;
+- whether arbitrary beneficiaries can be expressed;
+- economic-loss limits even when exfiltration is constrained.
 
 ## Open Questions
 
@@ -86,3 +111,5 @@ Any delegated economic operation should define:
 - Should merchant reputation affect authority limits?
 - How should failed or ambiguous evidence downgrade autonomy?
 - Is restricting an agent to already-created, allowlisted economic commitments a reusable Level 3 primitive?
+- Which dangerous economic actions can be removed from the agent's action space entirely?
+- How should authority models separately represent exfiltration risk and economic-decision risk?
