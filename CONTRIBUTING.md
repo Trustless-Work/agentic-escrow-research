@@ -14,7 +14,8 @@ This repository welcomes builders, researchers, protocol designers, AI-agent dev
 - design a tool schema;
 - build a small reference experiment;
 - write threat-model notes;
-- improve the whitepaper.
+- improve the whitepaper;
+- add a research note that maps implementation evidence to an existing RFC.
 
 ## Contribution Standards
 
@@ -43,6 +44,20 @@ Use the following status values:
 - `Accepted`
 - `Superseded`
 - `Rejected`
+
+## Research-Note Process
+
+Use research notes for implementation evidence, operational observations, version comparisons, and evidence that informs an existing RFC without proposing a new normative design.
+
+Research notes should:
+
+- identify which RFC or research question they inform;
+- distinguish production, testnet, historical, and unverified evidence;
+- preserve version context;
+- mark implementation-specific workarounds clearly;
+- state whether a newer version addresses, partially addresses, or still needs to validate the observed failure mode.
+
+Index research notes under `research-notes/`. A legacy or contributor-provided path may be retained for provenance, but the repository classification should remain explicit.
 
 ## Use-Case Process
 
