@@ -39,6 +39,7 @@ It is not a production protocol commitment. Research conclusions should be valid
 | [rfcs/0004-agent-facing-tool-schema.md](rfcs/0004-agent-facing-tool-schema.md) | Candidate tool/API schema for agents |
 | [use-cases/](use-cases/) | Use-case library and implementation evidence |
 | [use-cases/nirium-bounded-milestone-payouts.md](use-cases/nirium-bounded-milestone-payouts.md) | Real-world bounded-authority milestone payout example |
+| [use-cases/nirium-treasury-missing-parameter.md](use-cases/nirium-treasury-missing-parameter.md) | Authority-by-missing-parameter treasury example |
 
 ## Research Tracks
 
@@ -48,6 +49,7 @@ It is not a production protocol commitment. Research conclusions should be valid
 4. Bounties and grants: agents matching work, evidence, approvals, and milestone payments.
 5. Machine-native APIs: x402-style direct payments combined with conditional escrow for larger or higher-risk commitments.
 6. Safety and authorization: signing policy, key custody, approval separation, disputes, recovery, and recourse.
+7. Bounded control of owned capital: recurring automated actions where capability design constrains what economic outcomes an agent can express.
 
 ## Core Questions
 
@@ -58,6 +60,8 @@ It is not a production protocol commitment. Research conclusions should be valid
 - When does conditional settlement provide materially better safety?
 - What tool schema should make invalid authority obvious before transaction submission?
 - What failure paths are required if an agent, merchant, oracle, verifier, or user disappears?
+- Which dangerous economic actions can be made structurally inexpressible to an automated actor?
+- How should we distinguish exfiltration authority from economic-decision authority?
 
 ## Current Working Model
 
@@ -77,6 +81,12 @@ Human intent
 Implementation evidence is beginning to refine this model. The [Nirium bounded-authority milestone payout use case](use-cases/nirium-bounded-milestone-payouts.md) demonstrates a concrete pattern in which a human fixes the economic commitment up front while automation is limited to state transitions inside already-created, allowlisted escrows.
 
 > **Human defines the economic boundary; automation operates inside that boundary.**
+
+A second Nirium implementation adds another form of bounded authority: [authority by missing parameter](use-cases/nirium-treasury-missing-parameter.md). In this pattern, the automated actor's callable operation does not expose an arbitrary beneficiary parameter.
+
+> **Make unauthorized economic actions inexpressible, not merely disallowed.**
+
+Together, these examples suggest that safe agentic finance depends both on **pre-authorized objects an agent may act upon** and on **capabilities the agent is never given in the first place**.
 
 ## Relationship to Trustless Work
 
