@@ -37,7 +37,8 @@ It is not a production protocol commitment. Research conclusions should be valid
 | [rfcs/0002-agent-authority-levels.md](rfcs/0002-agent-authority-levels.md) | Human/agent autonomy model |
 | [rfcs/0003-x402-escrow-composition.md](rfcs/0003-x402-escrow-composition.md) | x402 and escrow composition |
 | [rfcs/0004-agent-facing-tool-schema.md](rfcs/0004-agent-facing-tool-schema.md) | Candidate tool/API schema for agents |
-| [use-cases/](use-cases/) | Use-case library |
+| [use-cases/](use-cases/) | Use-case library and implementation evidence |
+| [use-cases/nirium-bounded-milestone-payouts.md](use-cases/nirium-bounded-milestone-payouts.md) | Real-world bounded-authority milestone payout example |
 
 ## Research Tracks
 
@@ -72,6 +73,10 @@ Human intent
   -> approval / dispute / fallback
   -> release or refund
 ```
+
+Implementation evidence is beginning to refine this model. The [Nirium bounded-authority milestone payout use case](use-cases/nirium-bounded-milestone-payouts.md) demonstrates a concrete pattern in which a human fixes the economic commitment up front while automation is limited to state transitions inside already-created, allowlisted escrows.
+
+> **Human defines the economic boundary; automation operates inside that boundary.**
 
 ## Relationship to Trustless Work
 
