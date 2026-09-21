@@ -1,6 +1,6 @@
 # Use Cases
 
-This folder collects concrete agentic escrow use cases.
+This folder collects concrete use cases and implementation evidence relevant to agentic escrow and bounded economic authority.
 
 Each use case should explain why direct payment may be insufficient and what conditional settlement adds.
 
@@ -16,6 +16,7 @@ The library includes both **conceptual use cases** and **implementation evidence
 | [Enterprise procurement](enterprise-procurement.md) | Conceptual | How can company agents coordinate controlled vendor payments? |
 | [Grants and bounties](grants-and-bounties.md) | Conceptual | How can agents help route milestone-based capital? |
 | [Nirium: bounded-authority milestone payouts + x402](nirium-bounded-milestone-payouts.md) | Implementation evidence | How can a human define the economic commitment while automation is limited to approving and releasing already-authorized milestone payouts? |
+| [Nirium: authority by missing parameter](nirium-treasury-missing-parameter.md) | Implementation evidence | Can automated capital management be made safer by designing the callable operation so an arbitrary beneficiary cannot be expressed? |
 
 ## Implementation Evidence
 
@@ -34,3 +35,20 @@ The main research pattern is:
 > **Human defines the economic boundary; automation operates inside that boundary.**
 
 This is evidence for bounded agent authority, not a commitment to a specific future Trustless Work API, signing architecture, or x402 composition.
+
+### Nirium: authority by missing parameter
+
+[Nirium's treasury contribution](nirium-treasury-missing-parameter.md) documents a different bounded-authority pattern. This flow does not use escrow: a policy-constrained RebalanceManager operates on a client-owned DeFindex vault, while the callable `rebalance()` operation does not expose an arbitrary external recipient parameter.
+
+The reusable research principle is:
+
+> **Make unauthorized economic actions inexpressible, not merely disallowed.**
+
+This introduces a useful distinction between two kinds of authority:
+
+- **exfiltration authority** — can the automated actor direct capital to an arbitrary beneficiary?;
+- **economic decision authority** — can the automated actor make permitted decisions that still lose value through allocation, timing, slippage, or churn?
+
+Restricting arbitrary beneficiaries can strongly reduce exfiltration risk without eliminating economic-decision risk.
+
+This example is adjacent to escrow rather than an escrow flow itself. It broadens the research question from only *when should a payment become final?* to also include *which economic actions should be impossible for an automated actor to express?*
