@@ -173,6 +173,23 @@ escrow -> conditional principal or protected commitment
 
 The research question is not whether escrow replaces x402. The better question is when direct machine payment is sufficient and when conditional settlement is required.
 
+### Implementation evidence: direct payment without escrow
+
+The [Nirium direct x402 payment use case](use-cases/nirium-direct-x402-payment.md) provides real-world evidence for a transaction where escrow should be bypassed: a small, immediate digital purchase settled directly through x402.
+
+The design principle is:
+
+> **Do not introduce conditional settlement when there is no meaningful condition to protect.**
+
+This evidence also separates two classes of risk that should not be conflated:
+
+- **counterparty / fulfillment risk** — whether payment finality should depend on performance, evidence, approval, dispute, or recourse;
+- **payment-infrastructure / dependency risk** — whether a facilitator, relayer, transport, RPC endpoint, or reconciliation path fails or produces ambiguous settlement.
+
+Escrow can address the first class. It does not automatically solve the second.
+
+For autonomous clients, even correct direct-payment flows therefore need deterministic settlement status, retry safety, reconciliation and next-action semantics.
+
 ## 9. Safety and Failure Modes
 
 The research must address:
@@ -191,7 +208,8 @@ The research must address:
 - user recovery if an agent disappears;
 - inspection of open commitments;
 - exfiltration authority versus economic-decision authority;
-- capabilities or parameters that should be structurally unavailable to autonomous actors.
+- capabilities or parameters that should be structurally unavailable to autonomous actors;
+- payment dependency health, ambiguous settlement, retry safety and reconciliation.
 
 No serious agentic payment architecture can ignore these questions.
 
@@ -209,6 +227,8 @@ No serious agentic payment architecture can ignore these questions.
 10. What reference implementation would teach the most?
 11. Which dangerous actions can be made inexpressible rather than merely prohibited?
 12. How should systems bound economic-decision risk when exfiltration risk is already constrained?
+13. How should agent systems distinguish counterparty risk from payment-infrastructure risk?
+14. What machine-readable recovery semantics are required when direct-payment settlement is ambiguous?
 
 ## 11. Conclusion
 
