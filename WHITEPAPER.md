@@ -91,6 +91,16 @@ Agentic payments should be modeled as levels of authority:
 
 Early implementations should begin at levels 1 or 2.
 
+### Implementation evidence: bounded authority by precommitment
+
+The [Nirium bounded-authority milestone payout use case](use-cases/nirium-bounded-milestone-payouts.md) provides an early real-world example of a more constrained Level 3-style pattern. A human creates the escrow and fixes the milestones, amounts, receivers, and roles. A narrow automated signer can then approve and release milestones only on allowlisted, already-created escrows, while dispute resolution remains outside the automated path.
+
+This suggests an important distinction for future research:
+
+> **Defining an economic commitment is a different authority from executing state transitions inside an already-authorized commitment.**
+
+The pattern can be summarized as: **human defines the economic boundary; automation operates inside that boundary.**
+
 ## 6. Baseline Agentic Escrow Flow
 
 ```text
