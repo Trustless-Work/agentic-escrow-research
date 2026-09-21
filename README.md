@@ -26,6 +26,21 @@ This repository is a public research initiative. It is meant to host:
 
 It is not a production protocol commitment. Research conclusions should be validated before they are promoted into Trustless Work's core product, API, SDK, MCP, or smart-contract roadmap.
 
+## Why Open Research
+
+The goal is to build a public learning base for agentic settlement: real use cases, implementation evidence, failed assumptions, safety patterns, integration lessons, and protocol comparisons.
+
+By collecting this work in the open, the project can:
+
+- help builders understand when conditional settlement is useful;
+- make integration lessons reusable instead of private and scattered;
+- attract contributors who are already building agentic commerce, wallets, payment rails, marketplaces, and automation tools;
+- identify where Trustless Work should compose with other protocols instead of replacing them;
+- learn which features belong above existing contracts, in APIs or SDKs, and which would require deeper architecture review;
+- make Trustless Work the natural integration surface for outcome-based agentic transactions.
+
+The repository should therefore preserve both positive evidence and negative evidence. A case where escrow adds no value is as useful as a case where escrow is essential.
+
 ## How to Read This Repo
 
 This repository separates evidence, proposals, and product commitments.
