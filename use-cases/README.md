@@ -17,6 +17,7 @@ The library includes both **conceptual use cases** and **implementation evidence
 | [Grants and bounties](grants-and-bounties.md) | Conceptual | How can agents help route milestone-based capital? |
 | [Nirium: bounded-authority milestone payouts + x402](nirium-bounded-milestone-payouts.md) | Implementation evidence | How can a human define the economic commitment while automation is limited to approving and releasing already-authorized milestone payouts? |
 | [Nirium: authority by missing parameter](nirium-treasury-missing-parameter.md) | Implementation evidence | Can automated capital management be made safer by designing the callable operation so an arbitrary beneficiary cannot be expressed? |
+| [Nirium: direct x402 payment without escrow](nirium-direct-x402-payment.md) | Implementation evidence | When is direct payment sufficient, and what failure modes remain even when escrow would add no value? |
 
 ## Implementation Evidence
 
@@ -52,3 +53,20 @@ This introduces a useful distinction between two kinds of authority:
 Restricting arbitrary beneficiaries can strongly reduce exfiltration risk without eliminating economic-decision risk.
 
 This example is adjacent to escrow rather than an escrow flow itself. It broadens the research question from only *when should a payment become final?* to also include *which economic actions should be impossible for an automated actor to express?*
+
+### Nirium: direct x402 payment without escrow
+
+[Nirium's direct-payment contribution](nirium-direct-x402-payment.md) documents a real x402 settlement for a small, immediate digital purchase where escrow would add unnecessary coordination overhead.
+
+The reusable research principle is:
+
+> **Do not introduce conditional settlement when there is no meaningful condition to protect.**
+
+The contribution also separates two different questions:
+
+- **settlement-model risk** — does fulfillment require conditional release, approval, dispute, or recourse?;
+- **payment-infrastructure risk** — can the facilitator or another dependency be unavailable, ambiguous, or require reconciliation?
+
+A flow can correctly use direct payment while still needing health checks, retries, receipts, reconciliation, and machine-readable failure semantics.
+
+Evidence note: `x402-foundation/x402#3148` should not be treated as corroboration of the specific rejected-then-settled incident described in the contribution. The issue discussion corrected the original framing. Its durable value for this research is the difficulty of exposing stable machine-readable rejection/recovery reasons to unattended clients.
