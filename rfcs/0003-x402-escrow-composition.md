@@ -75,6 +75,35 @@ larger / delayed / conditional
 
 It also contributes a bounded-authority pattern on the escrow side: the human defines the economic commitment first, while the automated signer is restricted to state transitions on allowlisted, already-created escrows.
 
+## Direct Payment Evidence: Verified x402 Settlement
+
+The [Nirium direct x402 payment use case](../use-cases/nirium-direct-x402-payment.md) documents the other side of this RFC: a small, immediate digital purchase where direct payment is the appropriate settlement model and escrow adds no meaningful counterparty protection.
+
+The implementation supports a stronger decision rule:
+
+> **Do not introduce conditional settlement when there is no meaningful condition to protect.**
+
+It also reveals that the direct-payment-versus-escrow decision is only one axis. A second axis concerns the reliability of the payment infrastructure itself.
+
+```text
+Axis 1 — settlement model
+direct payment <-> conditional escrow
+
+Axis 2 — infrastructure state
+healthy / degraded / unavailable / ambiguous / reconciliation-needed
+```
+
+Escrow can mitigate counterparty/fulfillment risk. It does not automatically solve facilitator outages, ambiguous settlement, transport failures, or dependency misconfiguration.
+
+For unattended agents, direct-payment integrations therefore still need machine-readable answers to questions such as:
+
+- did value settle?;
+- is retry safe?;
+- is the failure terminal or temporary?;
+- should the agent reauthorize, wait, reconcile, or request recovery?
+
+Evidence note: the x402 issue referenced in the contribution (`x402-foundation/x402#3148`) does not independently establish the specific rejected-then-settled incident. Its durable contribution here is evidence that rejection and infrastructure failure states need clearer machine-readable recovery semantics.
+
 ## Research Questions
 
 - Can a payment requirement include escrow terms?
@@ -83,6 +112,8 @@ It also contributes a bounded-authority pattern on the escrow side: the human de
 - How should an agent decide between direct payment and escrow?
 - What metadata should pass between the payment request and escrow creation?
 - Should direct-payment and escrow capabilities remain separate tools, or should a higher-level agent-facing primitive select between them?
+- How should agents detect facilitator health and ambiguous settlement before retrying?
+- What standard receipt/reconciliation semantics are needed for unattended direct-payment clients?
 
 ## Non-Goals
 
