@@ -54,6 +54,27 @@ x402 payment request
   -> approval / release
 ```
 
+## Implementation Evidence: Nirium
+
+The [Nirium bounded-authority milestone payout use case](../use-cases/nirium-bounded-milestone-payouts.md) contributes real implementation evidence for the two primitives on either side of this RFC:
+
+- Nirium operates an x402 direct-payment primitive for small, immediate payments;
+- Nirium has also implemented Trustless Work Multi-Release milestone payouts with bounded automated approval/release authority;
+- the two primitives are working independently;
+- they have **not yet been composed into one end-to-end x402-to-escrow flow**.
+
+The contribution supports the working distinction:
+
+```text
+small / immediate / atomic
+  -> direct payment
+
+larger / delayed / conditional
+  -> escrow
+```
+
+It also contributes a bounded-authority pattern on the escrow side: the human defines the economic commitment first, while the automated signer is restricted to state transitions on allowlisted, already-created escrows.
+
 ## Research Questions
 
 - Can a payment requirement include escrow terms?
@@ -61,6 +82,7 @@ x402 payment request
 - Should x402 handle small access fees while escrow handles larger conditional principal?
 - How should an agent decide between direct payment and escrow?
 - What metadata should pass between the payment request and escrow creation?
+- Should direct-payment and escrow capabilities remain separate tools, or should a higher-level agent-facing primitive select between them?
 
 ## Non-Goals
 
