@@ -46,7 +46,7 @@ The reusable research principle is:
 
 This introduces a useful distinction between two kinds of authority:
 
-- **exfiltration authority** — can the automated actor direct capital to an arbitrary beneficiary?;
+- **exfiltration authority** — can the automated actor direct capital to an arbitrary beneficiary?
 - **economic decision authority** — can the automated actor make permitted decisions that still lose value through allocation, timing, slippage, or churn?
 
 Restricting arbitrary beneficiaries can strongly reduce exfiltration risk without eliminating economic-decision risk.
