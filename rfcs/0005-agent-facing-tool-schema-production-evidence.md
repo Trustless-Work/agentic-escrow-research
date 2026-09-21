@@ -2,6 +2,13 @@
 
 Status: Research
 
+Maintainer classification: **Research Note supporting RFC 0004 — non-normative**  
+Version context: **V1 is the current mainnet production baseline; V2 is beta/testnet.**  
+Provenance note: the original RFC-style title/path is retained so the contributor's evidence is not deleted or rewritten away. For repository interpretation, this document is indexed and cited as implementation/research evidence for RFC 0004 rather than as a new normative RFC.
+
+> **Maintainer interpretation rule:** preserve the V1 production observations as evidence, then map each observation to V2 as **addressed**, **partially addressed**, **still open**, or **requires beta validation**. A V2 improvement does not invalidate the V1 observation; it tells us what the newer architecture learned from it.
+
+
 ## Summary
 
 RFC 0004 sketches candidate operations, a transaction state model, and an
@@ -15,6 +22,39 @@ state model and error model sections.
 Everything cited here is either independently verifiable on Horizon or a
 live mainnet API today, or explicitly marked as not yet verified — same
 evidence discipline as PR #1/#2.
+
+## Maintainer V1 → V2 Mapping
+
+The observations below are valuable precisely because they come from the production V1 generation. V2 should be evaluated against them rather than used to dismiss them.
+
+| Observation in this note | V1 production interpretation | V2 beta/testnet mapping | Research status |
+| --- | --- | --- | --- |
+| Chain submission succeeds while the indexed/read model lags | Real operational failure mode; V1 recovery could involve direct Horizon submission and manual `update-from-txhash` reconciliation | V2 explicitly models this through `POST /stellar/send-transaction` and the `STELLAR_TX_SUBMITTED_INDEXER_LAGGING` result. Current guidance treats this as successful submission with eventual read-model consistency and says **do not retry the transaction** | **Addressed in V2 design; retain as regression evidence** |
+| A deploy bypasses the API and the backend never learns that the object exists | V1 can end up with valid chain state that application state cannot resolve normally | V2 architecture uses continuous event/indexer discovery of Trustless Work escrows and separates chain authority from the read model. This is intended to reduce the failure mode, but the exact bypass/deploy scenario should be tested end-to-end before calling it resolved | **Architecturally improved; beta validation required** |
+| `getEscrowByContractId` receives the wrong input shape and silently returns no result | V1 caller-side validation can be too weak; absence of an error is not proof of absence of state | V2 surfaces use typed `contractIds` filters and stricter declared-field/type validation. That improves the interface contract, but the original silent-failure shape should remain a regression test | **Partially addressed; regression test required** |
+| Human signing can miss a tight transaction-validity window | Real friction in a prepare → human sign → submit workflow | V2 still exposes an unsigned-XDR → signer → `send-transaction` workflow. No evidence in this review proves that the timing constraint is eliminated | **Still open; test by signer type** |
+| Tool schema and public availability differ | Real-world tools can exist internally or for restricted signers without being public to arbitrary third parties | V2 does not remove this distinction; capability exposure remains a policy/product decision | **Still relevant** |
+| Human and automated signers need different interaction shapes | Human signers benefit from inspectable unsigned transactions; constrained automated signers may benefit from bounded complete actions | V2 still makes signer workflow an explicit integration concern; policy-controlled complete-action semantics remain research work | **Still open / design input** |
+
+### Version warning on the V1 recovery path
+
+The contributor's `Horizon -> update-from-txhash` recovery sequence below should be read as **historical V1 operational evidence**, not as the recommended V2 integration path.
+
+For V2 beta/testnet, the current intended pattern is conceptually:
+
+```text
+build action
+-> receive unsigned XDR
+-> authorized signer signs
+-> POST /stellar/send-transaction
+-> confirmed
+   or STELLAR_TX_SUBMITTED_INDEXER_LAGGING
+-> re-read / inspect transaction state
+```
+
+The important research lesson survives across versions:
+
+> **Chain submission state and application/read-model state are separate machine states and must not be collapsed into one success/failure boolean.**
 
 ## What's Shipped
 
@@ -83,6 +123,18 @@ this object exists" case — isn't visible in RFC 0004's current state
 table, and may be worth a fifth state or an explicit note that `lagging`
 doesn't uniformly resolve on its own.
 
+### Maintainer flag: do not generalize the V1 workaround
+
+The operational incident is valid V1 evidence. The recovery mechanism is version-specific.
+
+- **Keep:** the observation that chain-confirmed state can temporarily disagree with the application read model.
+- **Keep:** the requirement for a machine-readable state that tells an agent not to duplicate an already-submitted economic action.
+- **Flag as V1-specific:** manual `update-from-txhash` reconciliation.
+- **Map to V2:** `STELLAR_TX_SUBMITTED_INDEXER_LAGGING` represents successful submission with delayed read-model convergence.
+- **Validate on V2 beta:** whether an API-bypassing deploy is always rediscovered automatically by the continuous indexer path.
+
+Do not infer from this note that V2 clients should reproduce the V1 direct-Horizon/manual-indexer flow.
+
 ## Error Model — Two Real, Named Failures
 
 Both already reported and fixed, both directly relevant to RFC 0004's
@@ -98,6 +150,50 @@ Both already reported and fixed, both directly relevant to RFC 0004's
   0004's `prepared`/`unsigned`/`signed` states imply, needs to either
   collapse those steps for automated signers or expose the window's
   length so a caller can judge whether manual signing is viable at all.
+
+### Maintainer flag: validation and signing-window status
+
+The two failures above map differently into V2:
+
+- The malformed `contractIds` case appears **partially addressed** by typed filters and stricter declared-field/type validation in V2-facing interfaces. Keep the original incident as a regression test rather than assuming the class of bug is impossible.
+- The signing-window observation is **not confirmed solved** by V2. V2 still has a prepare/unsigned/sign/submit lifecycle for human-controlled signing. The research question therefore remains signer-specific: human review may justify a multi-step flow; a narrowly scoped automated signer may need a bounded atomic action to avoid timing and handoff failures.
+
+This distinction should feed RFC 0004 without forcing one signing mode on every caller.
+
+## Additional Trustless Work Evidence: Historical MCP Surface
+
+The contributor's Nirium evidence should be compared with Trustless Work's own earlier MCP implementation rather than treated as the only available implementation data point.
+
+The historical `Trustless-Work/trustlesswork-mcp` repository predates this research initiative and exposes tools including:
+
+- `deploy_single_release_escrow`
+- `deploy_multi_release_escrow`
+- `fund_escrow`
+- `update_escrow`
+- `approve_milestone`
+- `change_milestone_status`
+- `release_funds`
+- `release_milestone_funds`
+- dispute and dispute-resolution operations
+- escrow query operations
+- `send_transaction`
+- `withdraw_remaining_funds`
+
+Most mutating operations return unsigned XDR for a separate signer, so this implementation is useful historical evidence for the **inspectable human-signing** side of RFC 0004.
+
+It is explicitly **V1-oriented** and mirrors many backend/API concepts fairly directly. It should not be treated as the future agent-facing design. Instead, the stronger evidence set is:
+
+```text
+historical Trustless Work MCP
+        +
+Nirium operational evidence
+        +
+current Core API V2 beta architecture
+        ↓
+agent-facing design principles for RFC 0004
+```
+
+This comparison supports a key research direction: the future tool layer should model **economic intent, authority, signer mode, state and recovery semantics**, rather than mechanically exposing whichever backend endpoints happen to exist in one implementation generation.
 
 ## Answers to RFC 0004's Open Questions, From Operational Experience
 
@@ -125,6 +221,33 @@ Both already reported and fixed, both directly relevant to RFC 0004's
   raw escrow functions?"** No direct evidence either way from this build
   — flagged as genuinely open, not answered here.
 
+## Maintainer Synthesis for RFC 0004
+
+Taken together, the contributor evidence plus the V1/V2 comparison supports the following non-normative design inputs for RFC 0004:
+
+1. **Interface intent should sit above transport details.** An operation such as `release_payment` should not require an agent to reason about internal endpoint topology.
+2. **Signer mode is part of the tool contract.** A human-controlled signer and a policy-constrained automated signer may legitimately receive different execution flows.
+3. **Authority and capability discovery are separate from operation naming.** A schema may define an operation without exposing it to every caller.
+4. **Chain state and read-model state must be independently legible.** “Submitted,” “confirmed,” and “indexed/queryable” are not synonyms.
+5. **Retry safety must be explicit.** A temporary read-model lag must never cause an agent to duplicate a successful economic action.
+6. **Input contracts should fail loudly and structurally.** Empty results caused by malformed inputs are dangerous for autonomous callers.
+7. **Version-specific workarounds are evidence, not interface requirements.** V1 incidents should become V2 regression tests and design lessons rather than permanent public abstractions.
+
+A future agent-facing response envelope may need fields conceptually similar to:
+
+```text
+requiredRole
+signingMode
+authorityScope
+transactionState
+readModelState
+retrySafe
+dependencyState
+nextValidActions
+```
+
+These names are research vocabulary, not approved API fields.
+
 ## Failure Modes / Scope Honesty
 
 - This is evidence from one integrator's build, not a claim that this
@@ -149,3 +272,11 @@ Both already reported and fixed, both directly relevant to RFC 0004's
   invite-gated, self-directed-only), since the same operation can exist
   in code while being intentionally unavailable for reasons the schema
   itself doesn't capture?
+
+### Maintainer-added V1 → V2 research questions
+
+- Which V1 production failure modes are explicitly covered by V2 regression tests today?
+- Can V2 prove that an on-chain deploy missed by the normal submit path is eventually discovered without a manual registration endpoint?
+- What transaction-validity window does V2 expose to human signers, and is it machine-readable before signing?
+- Should tool discovery return only operations the current caller can actually execute, or return the full schema plus explicit capability metadata?
+- What common response envelope can represent chain state, read-model state, signer requirements, retry safety and next valid actions across V1 production and V2 beta?
