@@ -37,6 +37,7 @@ It is not a production protocol commitment. Research conclusions should be valid
 | [rfcs/0002-agent-authority-levels.md](rfcs/0002-agent-authority-levels.md) | Human/agent autonomy model |
 | [rfcs/0003-x402-escrow-composition.md](rfcs/0003-x402-escrow-composition.md) | x402 and escrow composition |
 | [rfcs/0004-agent-facing-tool-schema.md](rfcs/0004-agent-facing-tool-schema.md) | Candidate tool/API schema for agents |
+| [research-notes/](research-notes/) | Non-normative implementation evidence and version-aware research notes |
 | [use-cases/](use-cases/) | Use-case library and implementation evidence |
 | [use-cases/nirium-bounded-milestone-payouts.md](use-cases/nirium-bounded-milestone-payouts.md) | Real-world bounded-authority milestone payout example |
 | [use-cases/nirium-treasury-missing-parameter.md](use-cases/nirium-treasury-missing-parameter.md) | Authority-by-missing-parameter treasury example |
@@ -96,6 +97,12 @@ A third Nirium contribution documents the boundary where escrow should be bypass
 > **Do not introduce conditional settlement when there is no meaningful condition to protect.**
 
 That evidence also separates **counterparty/fulfillment risk** from **payment-infrastructure/dependency risk**. Escrow addresses the former; facilitator health, retry safety, reconciliation and ambiguous settlement require their own controls.
+
+A fourth contribution focuses on the machine interface itself: [production evidence for the agent-facing tool schema](rfcs/0005-agent-facing-tool-schema-production-evidence.md). It is classified as a **Research Note supporting RFC 0004**, not as a new normative RFC.
+
+Its V1-to-V2 comparison reinforces that agent tools must distinguish chain submission, read-model convergence, signer mode, retry safety, caller capability, and next valid action.
+
+> **Version-specific workarounds are evidence; durable agent-facing abstractions should encode the underlying state and authority problem instead.**
 
 ## Relationship to Trustless Work
 
