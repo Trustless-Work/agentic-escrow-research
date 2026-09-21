@@ -58,7 +58,27 @@ Errors should tell an agent:
 - whether signing is needed;
 - whether the state changed;
 - whether retry is safe;
-- what next action is valid.
+- what next action is valid;
+- whether a failure is retryable, terminal, or requires reconciliation;
+- whether settlement is confirmed, absent, or ambiguous;
+- whether an external dependency is unavailable.
+
+## Direct-Payment Recovery Semantics
+
+The [Nirium direct x402 payment evidence](../use-cases/nirium-direct-x402-payment.md) shows that agent-facing semantics matter even when escrow is not used. An unattended agent must be able to distinguish payment rejection from facilitator unavailability, ambiguous settlement, and a safe retry.
+
+A generic recovery envelope worth researching is:
+
+```text
+status
+reasonCode
+settlementState
+retrySafe
+dependencyState
+nextValidActions
+```
+
+This does not imply Trustless Work should standardize x402 errors. It reinforces the broader requirement that agent-facing financial tools expose deterministic recovery semantics rather than opaque transport failures.
 
 ## Open Questions
 
@@ -66,3 +86,4 @@ Errors should tell an agent:
 - Should agents receive higher-level commerce primitives instead of raw escrow functions?
 - Should tool calls generate unsigned transactions or complete actions?
 - How should policy wallets and human approval prompts fit into the schema?
+- Should the agent-facing layer use a common recovery/error model across direct-payment and escrow-backed actions?
