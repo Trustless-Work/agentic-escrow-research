@@ -18,6 +18,7 @@ The library includes both **conceptual use cases** and **implementation evidence
 | [Nirium: bounded-authority milestone payouts + x402](nirium-bounded-milestone-payouts.md) | Implementation evidence | How can a human define the economic commitment while automation is limited to approving and releasing already-authorized milestone payouts? |
 | [Nirium: authority by missing parameter](nirium-treasury-missing-parameter.md) | Implementation evidence | Can automated capital management be made safer by designing the callable operation so an arbitrary beneficiary cannot be expressed? |
 | [Nirium: direct x402 payment without escrow](nirium-direct-x402-payment.md) | Implementation evidence | When is direct payment sufficient, and what failure modes remain even when escrow would add no value? |
+| [Open Stellar skills marketplace](open-stellar-skills-marketplace.md) | Adjacent implementation evidence | When should an agent-paid skill use direct Stellar x402 payment, and when should it become escrow-backed outcome settlement? |
 
 ## Implementation Evidence
 
@@ -70,3 +71,13 @@ The contribution also separates two different questions:
 A flow can correctly use direct payment while still needing health checks, retries, receipts, reconciliation, and machine-readable failure semantics.
 
 Evidence note: `x402-foundation/x402#3148` should not be treated as corroboration of the specific rejected-then-settled incident described in the contribution. The issue discussion corrected the original framing. Its durable value for this research is the difficulty of exposing stable machine-readable rejection/recovery reasons to unattended clients.
+
+### Open Stellar: skills marketplace direct payment vs escrow boundary
+
+[Open Stellar's contribution](open-stellar-skills-marketplace.md) documents a Stellar-oriented agent skills marketplace where a direct x402-style payment can trigger an immediate skill invocation.
+
+Its main research value is the settlement boundary:
+
+> **Use direct payment for access, usage, attempts, and immediate responses; use escrow when the agent is buying an outcome that needs evidence, review, dispute, or recovery.**
+
+This complements the Nirium direct-payment evidence by adding a marketplace and agent-to-agent service-discovery shape.
