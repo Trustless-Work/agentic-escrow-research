@@ -101,6 +101,18 @@ This suggests an important distinction for future research:
 
 The pattern can be summarized as: **human defines the economic boundary; automation operates inside that boundary.**
 
+### Implementation evidence: authority by missing parameter
+
+The [Nirium treasury rebalancing use case](use-cases/nirium-treasury-missing-parameter.md) provides a second authority pattern outside escrow itself. A policy-constrained automated signer can perform recurring rebalancing actions over client-owned capital, while the callable operation does not expose an arbitrary external beneficiary parameter to that signer.
+
+The broader design principle is:
+
+> **Make unauthorized economic actions inexpressible, not merely disallowed.**
+
+This complements bounded authority by precommitment. One pattern limits the agent to an already-authorized economic object; the other limits the set of economic choices the agent can express at all.
+
+It also requires a distinction between **exfiltration risk** and **economic-decision risk**. An agent may be unable to redirect capital to an arbitrary beneficiary while still being capable of making permitted decisions that cause economic loss.
+
 ## 6. Baseline Agentic Escrow Flow
 
 ```text
@@ -177,7 +189,9 @@ The research must address:
 - cancellation and refund semantics;
 - dispute resolution;
 - user recovery if an agent disappears;
-- inspection of open commitments.
+- inspection of open commitments;
+- exfiltration authority versus economic-decision authority;
+- capabilities or parameters that should be structurally unavailable to autonomous actors.
 
 No serious agentic payment architecture can ignore these questions.
 
@@ -193,6 +207,8 @@ No serious agentic payment architecture can ignore these questions.
 8. Which use cases need escrow instead of direct payment?
 9. Where does x402 complement escrow?
 10. What reference implementation would teach the most?
+11. Which dangerous actions can be made inexpressible rather than merely prohibited?
+12. How should systems bound economic-decision risk when exfiltration risk is already constrained?
 
 ## 11. Conclusion
 
