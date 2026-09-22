@@ -1,4 +1,4 @@
-# Open Stellar Skills Marketplace With Direct Payment And Escrow Boundary
+# Open Stellar Skills Marketplace With Direct Payment and Escrow Boundary
 
 ## Summary
 
@@ -27,7 +27,7 @@ Consumer agent discovers the skill
 Consumer requests a 402 payment challenge
 Consumer pays on Stellar or another supported rail
 Consumer submits payment proof and paymentRef
-Marketplace records a receipt
+Marketplace records a receipt if accepted by the current verification path
 Provider skill endpoint is invoked
 Consumer receives the response
 ```
