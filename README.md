@@ -17,11 +17,11 @@ Trustless Work is exploring escrow as a machine-readable trust layer for humans,
 This repository is a public research initiative. It is meant to host:
 
 - a living whitepaper;
-- open RFCs;
+- open RFCs (Requests for Comments);
 - use-case analysis;
 - diagrams and trust models;
 - reference experiments;
-- implementation notes;
+- research notes and implementation evidence;
 - contributor research questions.
 
 It is not a production protocol commitment. Research conclusions should be validated before they are promoted into Trustless Work's core product, API, SDK, MCP, or smart-contract roadmap.
@@ -42,6 +42,8 @@ It is not a production protocol commitment. Research conclusions should be valid
 | [use-cases/nirium-bounded-milestone-payouts.md](use-cases/nirium-bounded-milestone-payouts.md) | Real-world bounded-authority milestone payout example |
 | [use-cases/nirium-treasury-missing-parameter.md](use-cases/nirium-treasury-missing-parameter.md) | Authority-by-missing-parameter treasury example |
 | [use-cases/nirium-direct-x402-payment.md](use-cases/nirium-direct-x402-payment.md) | Verified direct-payment case where escrow adds no value |
+| [use-cases/open-stellar-skills-marketplace.md](use-cases/open-stellar-skills-marketplace.md) | Agent skills marketplace boundary between direct payment and escrow-backed outcomes |
+| [research-notes/open-stellar-agentic-payment-evidence-2026-09-21.md](research-notes/open-stellar-agentic-payment-evidence-2026-09-21.md) | Open Stellar evidence for x402 skill payments, spend caps, receipts, and evaluator-assisted release reasoning |
 
 ## Research Tracks
 
@@ -103,6 +105,10 @@ A fourth contribution focuses on the machine interface itself: [production evide
 Its V1-to-V2 comparison reinforces that agent tools must distinguish chain submission, read-model convergence, signer mode, retry safety, caller capability, and next valid action.
 
 > **Version-specific workarounds are evidence; durable agent-facing abstractions should encode the underlying state and authority problem instead.**
+
+A fifth contribution adds adjacent Stellar ecosystem evidence from Open Stellar: a [skills marketplace use case](use-cases/open-stellar-skills-marketplace.md) and [research note](research-notes/open-stellar-agentic-payment-evidence-2026-09-21.md) showing how direct x402-style skill payments, receipts, spend caps, and typed evaluators inform the boundary between paid access and escrow-backed outcomes.
+
+> **Use direct payment for access, usage, attempts, and immediate responses; use escrow when the agent is buying an outcome that needs evidence, review, dispute, or recovery.**
 
 ## Relationship to Trustless Work
 
