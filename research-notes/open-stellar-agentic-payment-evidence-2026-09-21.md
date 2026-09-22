@@ -1,7 +1,7 @@
 # Open Stellar Agentic Payment Evidence - 2026-09-21
 
-Status: Research reference  
-Scope: Stellar x402 payments, agent skills, ZK spend-cap authorization, evaluation-driven release reasoning  
+Status: Research reference
+Scope: Stellar x402 payments, agent skills, ZK spend-cap authorization, evaluation-driven release reasoning
 Normative status: non-normative; does not rewrite or approve any RFC
 
 ## Purpose
@@ -18,12 +18,12 @@ Open Stellar currently includes these relevant primitives:
 
 | Area | Evidence | Research relevance |
 | --- | --- | --- |
-| Stellar x402 quotes and receipts | `lib/protocols/x402.ts`, `app/api/protocol/x402/*`, `app/api/explorer/receipts` | Direct per-request payment, quote expiry, receipt registry, chain choice, payer binding |
-| Skills marketplace | `docs/features/skills-marketplace.md`, `app/api/agents/[id]/skills/*` | Agent-to-agent service purchase flow where direct payment triggers execution |
-| Agent Passport / spend cap | `lib/passport/*`, `components/admin/passport-panel.tsx`, `app/api/protocol/passport/*` | Bounded authority and proof-like authorization before payment settlement |
-| Soroban escrow experiment | `contracts/stellar/escrow/src/lib.rs` | Minimal conditional settlement state machine on Stellar/Soroban |
-| Cloud agents and JEV evaluation | `lib/agent-runtime/*`, `lib/ai/jev.ts`, `app/api/ai/jev/evaluate` | Typed model evaluation for readiness, risk, and verification decisions |
-| CosmosPay integration draft | `lib/cosmospay/client.ts`, `app/api/cosmos/*` | SEP-7-style Stellar payment intents adjacent to x402 receipts |
+| Stellar x402 quotes and receipts | [`lib/protocols/x402.ts`](https://github.com/Bitcoindefi/Open-Stellar/blob/19a8685f49572760fd50ab4160077717201099f6/lib/protocols/x402.ts), [`app/api/protocol/x402/*`](https://github.com/Bitcoindefi/Open-Stellar/tree/19a8685f49572760fd50ab4160077717201099f6/app/api/protocol/x402), [`app/api/explorer/receipts`](https://github.com/Bitcoindefi/Open-Stellar/tree/19a8685f49572760fd50ab4160077717201099f6/app/api/explorer/receipts) | Direct per-request payment, quote expiry, receipt registry, chain choice, payer binding |
+| Skills marketplace | [`docs/features/skills-marketplace.md`](https://github.com/Bitcoindefi/Open-Stellar/blob/19a8685f49572760fd50ab4160077717201099f6/docs/features/skills-marketplace.md), [`app/api/agents/[id]/skills/*`](https://github.com/Bitcoindefi/Open-Stellar/tree/19a8685f49572760fd50ab4160077717201099f6/app/api/agents/%5Bid%5D/skills) | Agent-to-agent service purchase flow where direct payment triggers execution |
+| Agent Passport / spend cap | [`lib/passport/*`](https://github.com/Bitcoindefi/Open-Stellar/tree/19a8685f49572760fd50ab4160077717201099f6/lib/passport), [`components/admin/passport-panel.tsx`](https://github.com/Bitcoindefi/Open-Stellar/blob/19a8685f49572760fd50ab4160077717201099f6/components/admin/passport-panel.tsx), [`app/api/protocol/passport/*`](https://github.com/Bitcoindefi/Open-Stellar/tree/19a8685f49572760fd50ab4160077717201099f6/app/api/protocol/passport) | Bounded authority and proof-like authorization before payment settlement |
+| Soroban escrow experiment | [`contracts/stellar/escrow/src/lib.rs`](https://github.com/Bitcoindefi/Open-Stellar/blob/19a8685f49572760fd50ab4160077717201099f6/contracts/stellar/escrow/src/lib.rs) | Minimal conditional settlement state machine on Stellar/Soroban |
+| Cloud agents and JEV evaluation | [`lib/agent-runtime/*`](https://github.com/Bitcoindefi/Open-Stellar/tree/19a8685f49572760fd50ab4160077717201099f6/lib/agent-runtime), [`lib/ai/jev.ts`](https://github.com/Bitcoindefi/Open-Stellar/blob/19a8685f49572760fd50ab4160077717201099f6/lib/ai/jev.ts), [`app/api/ai/jev/evaluate`](https://github.com/Bitcoindefi/Open-Stellar/tree/19a8685f49572760fd50ab4160077717201099f6/app/api/ai/jev/evaluate) | Typed model evaluation for readiness, risk, and verification decisions |
+| CosmosPay integration draft | [`lib/cosmospay/client.ts`](https://github.com/Bitcoindefi/Open-Stellar/blob/19a8685f49572760fd50ab4160077717201099f6/lib/cosmospay/client.ts), [`app/api/cosmos/*`](https://github.com/Bitcoindefi/Open-Stellar/tree/19a8685f49572760fd50ab4160077717201099f6/app/api/cosmos) | SEP-7-style Stellar payment intents adjacent to x402 receipts |
 
 ## Current Open Stellar Flow
 
@@ -34,8 +34,8 @@ consumer/agent discovers a skill
 -> requests a 402 quote for skill invocation
 -> pays on Stellar or another supported rail
 -> submits tx hash and payment reference
--> Open Stellar validates the settlement shape
--> receipt is recorded
+-> Open Stellar validates the submitted settlement metadata or proof shape
+-> receipt is recorded if accepted by the current verification path
 -> skill endpoint is invoked
 -> result is returned to the paying agent
 ```
