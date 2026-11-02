@@ -26,6 +26,7 @@ Research notes do **not** establish a production commitment, approved API, smart
 | [Agent-facing interface recovery semantics - 2026-09-21](agent-facing-interface-recovery-semantics-2026-09-21.md) | RFC 0004 | Reference scaffold for transaction state, read-model state, retry safety, dependency state, and next valid actions |
 | [Open Stellar agentic payment evidence - 2026-09-21](open-stellar-agentic-payment-evidence-2026-09-21.md) | RFC 0002, RFC 0003, RFC 0004, verification note, use-case library | Adjacent implementation evidence for Stellar x402 skill payments, ZK spend-cap authorization, direct-payment vs escrow boundaries, and evaluator-assisted release reasoning |
 | [Fail-closed payment and delivery gates - 2026-10-05](fail-closed-payment-and-delivery-gates-2026-10-05.md) | RFC 0002, RFC 0004, recovery semantics note | Two fixed production failure modes where a payment gate and a delivery step defaulted to allow on internal error |
+| [Contract addresses as TW escrow roles - testnet - 2026-11-02](contract-addresses-as-tw-escrow-roles-testnet-2026-11-02.md) | RFC 0002, RFC 0001, RFC 0003 | Testnet evidence that Soroban contracts can hold Approver / Release Signer / Platform / Dispute Resolver in a single-release escrow; receipt-gated release with deadline refund via dispute/resolve; fee-on-refund and missing-timeout observations |
 
 ### Provenance note
 
