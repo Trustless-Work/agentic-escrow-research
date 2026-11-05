@@ -29,6 +29,7 @@ Research notes do **not** establish a production commitment, approved API, smart
 | [Evidence-gated milestone release: a testnet pilot - 2026-10-14](evidence-gated-release-testnet-pilot-2026-10-14.md) | RFC 0001, RFC 0002, RFC 0004, verification note | One automated approver that checks anchored evidence (hash, milestone binding, provider signature) before approve and release on a Multi-Release escrow, with on-chain transactions, refusal cases and limits |
 | ["Enabled" is not activity: liveness evidence for an autonomous signer - 2026-10-21](enabled-is-not-activity-2026-10-21.md) | RFC 0004, recovery-semantics note, authority note, treasury use case | Mainnet evidence that a status flag meaning "allowlisted" read as activity; separates permission, signer liveness and last confirmed action |
 | [Pre-sign policy hook: decision states and fail-closed signing - 2026-10-21](pre-sign-policy-hook-2026-10-21.md) | RFC 0002, RFC 0004, authority note, recovery-semantics note | Implementation and test evidence for policy-constrained signing on an x402 client: outcome vocabulary, approval bound to the exact authorization, and the limits an agent-side check cannot cover |
+| [x402 and MPP Charge on one endpoint: testnet settlements compared - 2026-10-21](x402-vs-mpp-charge-testnet-2026-10-21.md) | RFC 0003, RFC 0004, payment-rail note, recovery-semantics note | Settled testnet evidence for x402 and MPP Charge (pull and push) on the same endpoint; who submits, who pays the fee, and a push-mode payment that settled with no delivery |
 
 ### Provenance note
 
