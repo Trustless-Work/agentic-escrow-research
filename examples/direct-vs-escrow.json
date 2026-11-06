@@ -1,0 +1,49 @@
+{
+  "id": "examples/direct-vs-escrow",
+  "title": "Direct payment versus escrow decision table",
+  "status": "research-vocabulary",
+  "normative": false,
+  "question": "Should this agentic purchase use direct payment or escrow?",
+  "decisionTable": [
+    {
+      "when": [
+        "amount is small",
+        "fulfillment is immediate",
+        "access can be granted automatically",
+        "no meaningful post-payment condition remains"
+      ],
+      "prefer": "direct_payment",
+      "rationale": "Conditional settlement adds no counterparty protection when nothing remains to verify after settlement."
+    },
+    {
+      "when": [
+        "fulfillment happens later",
+        "delivery quality is uncertain",
+        "evidence review, dispute, deadline, or refund may be needed",
+        "amount or counterparty risk is meaningful"
+      ],
+      "prefer": "escrow",
+      "rationale": "Escrow preserves commitment while release stays conditional on evidence, approval, or dispute paths."
+    },
+    {
+      "when": [
+        "a cheap access or quote fee is due now",
+        "a larger protected principal depends on later outcome"
+      ],
+      "prefer": "compose_direct_then_escrow",
+      "rationale": "RFC 0003 treats the rails as complementary. A full shared-ID composition has not been demonstrated yet.",
+      "openGap": "shared correlation identifiers and receipts across access payment, escrow, fulfillment, and recovery"
+    }
+  ],
+  "secondAxis": {
+    "name": "payment_infrastructure_state",
+    "values": ["healthy", "degraded", "unavailable", "ambiguous", "reconciliation_needed"],
+    "note": "Escrow does not automatically solve facilitator or dependency failures."
+  },
+  "sources": [
+    "use-cases/nirium-direct-x402-payment.md",
+    "use-cases/nirium-bounded-milestone-payouts.md",
+    "rfcs/0003-x402-escrow-composition.md",
+    "research-notes/x402-vs-mpp-charge-testnet-2026-10-21.md"
+  ]
+}

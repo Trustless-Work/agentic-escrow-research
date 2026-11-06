@@ -55,10 +55,15 @@ This repository separates evidence, proposals, and product commitments.
 
 An RFC is therefore not the same thing as an approved product change. It is a disciplined way to expose a proposal to public review before anything becomes canonical.
 
+For agents and skimming humans, prefer the curated learning layer ([AGENTS.md](AGENTS.md), [learn-index.json](learn-index.json), [learnings/](learnings/)) before reading the full RFC and research-note history. Curated lessons cite their sources and state evidence class, confidence, and limitations.
+
 ## Starting Points
 
 | File | Purpose |
 | --- | --- |
+| [AGENTS.md](AGENTS.md) | First file for agents: read order, artifact semantics, confidence labels |
+| [learn-index.json](learn-index.json) | Machine-readable catalog of curated lessons with sources and limitations |
+| [learnings/](learnings/) | Short curated lessons; start here before raw research notes |
 | [CHARTER.md](CHARTER.md) | Initiative scope, principles, and governance |
 | [WHITEPAPER.md](WHITEPAPER.md) | Living whitepaper v0 |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | How contributors can participate |

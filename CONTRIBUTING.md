@@ -76,6 +76,25 @@ Create use cases under `use-cases/` using this structure:
 ## Open Questions
 ```
 
+## Curated Learning Process
+
+Use curated learnings when a finding is durable enough for an agent to retrieve without reading the whole repository.
+
+Add or update:
+
+1. an entry in root [`learn-index.json`](learn-index.json);
+2. a short Markdown lesson under [`learnings/`](learnings/);
+3. optional small JSON under [`examples/`](examples/) when an envelope or decision table helps.
+
+Every curated learning contribution must include:
+
+- the **lesson** (one clear question and short answer);
+- **evidence URLs or relative paths** to research notes, use cases, RFCs, or transactions;
+- **limitations** (evidence class, confidence, what is unverifiable or private);
+- whether the change **revises an existing finding** or only adds a new one.
+
+Do not treat curated learnings as production API, SDK, MCP, or contract commitments. Prefer linking to raw notes over copying their prose. See [`AGENTS.md`](AGENTS.md).
+
 ## Research Discipline
 
 This is a research initiative, not a marketing repository. Strong arguments, clear tradeoffs, and precise uncertainty are more valuable than broad claims.

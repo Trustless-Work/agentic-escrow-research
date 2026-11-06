@@ -120,3 +120,20 @@ Evidence note: the x402 issue referenced in the contribution (`x402-foundation/x
 - claiming escrow replaces x402;
 - requiring every agentic payment to use escrow;
 - designing a universal commerce protocol before use cases are validated.
+
+## Evidence updates since this RFC
+
+The principle-level direct-versus-escrow distinction in this RFC is now **research-supported**:
+
+- Direct payment is appropriate when there is no meaningful condition left to protect: [Nirium direct x402 payment](../use-cases/nirium-direct-x402-payment.md).
+- Escrow remains appropriate for delayed or conditional outcomes, with bounded automation on the escrow side: [Nirium bounded milestone payouts](../use-cases/nirium-bounded-milestone-payouts.md).
+- Payment-infrastructure risk is a separate axis from counterparty risk; escrow does not absorb facilitator or dependency failures.
+- Who submits the transaction changes failure modes; settled and delivered are distinct states: [x402 vs MPP Charge testnet comparison](../research-notes/x402-vs-mpp-charge-testnet-2026-10-21.md). Label the note’s historical push-mode failure **unverifiable**.
+
+Curated lesson: [settlement choice](../learnings/settlement-choice.md). Example: [direct-vs-escrow.json](../examples/direct-vs-escrow.json).
+
+The Research Questions section above is preserved. Several are partially answered at the principle level; composition mechanics are not.
+
+## Remaining design decision
+
+When a flow contains both direct payment and escrow, what shared identifiers and receipts connect the access payment, the escrow agreement, fulfillment, and recovery? A full combined composition remains undemonstrated.
