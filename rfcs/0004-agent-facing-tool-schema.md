@@ -118,3 +118,24 @@ These fields are research vocabulary, not approved schema names.
 - Should tool discovery expose only caller-authorized operations, or a complete schema plus explicit capability metadata?
 - How should V1 production incidents be represented as V2 regression requirements?
 - What signer-mode metadata is necessary before an agent prepares an economic action?
+
+## Evidence updates since this RFC
+
+Later evidence reinforces that agents need a minimal result/error recovery envelope, and that [RFC 0005](0005-agent-facing-tool-schema-production-evidence.md) remains **supporting evidence for this RFC**, not a competing design.
+
+Distinctions now backed by repository evidence:
+
+- Chain submission versus read-model / indexer convergence ([RFC 0005](0005-agent-facing-tool-schema-production-evidence.md)).
+- Settled versus delivered; submission mode changes the failure ([x402 vs MPP Charge](../research-notes/x402-vs-mpp-charge-testnet-2026-10-21.md); historical push failure unverifiable).
+- Permission versus signer liveness versus last confirmed action ([enabled is not activity](../research-notes/enabled-is-not-activity-2026-10-21.md)).
+- Operation definition versus caller capability ([RFC 0005](0005-agent-facing-tool-schema-production-evidence.md)).
+- Fail closed when payment or delivery gates cannot evaluate ([fail-closed gates](../research-notes/fail-closed-payment-and-delivery-gates-2026-10-05.md)).
+- Pre-sign outcome vocabulary for retryable, terminal, and dependency failures ([pre-sign policy hook](../research-notes/pre-sign-policy-hook-2026-10-21.md)).
+
+Curated lesson: [recovery semantics](../learnings/recovery-semantics.md). Examples: [payment-settled-not-delivered.json](../examples/payment-settled-not-delivered.json), [permission-liveness-last-action.json](../examples/permission-liveness-last-action.json).
+
+The Open Questions section above is preserved. Field names discussed here remain research vocabulary.
+
+## Remaining design decision
+
+What minimal result and error envelope lets an agent decide whether it changed economic state, whether retry is safe, and what it may do next—shared where useful across direct-payment and escrow-backed tools, without freezing unapproved schema names?

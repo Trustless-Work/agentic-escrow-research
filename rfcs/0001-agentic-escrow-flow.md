@@ -73,3 +73,18 @@ An initial implementation should support:
 - Should approval and release be separate roles?
 - What minimum evidence should be required before release?
 - How should the order identifier bind to the escrow?
+
+## Evidence updates since this RFC
+
+Later repository evidence shows the baseline protected-payment lifecycle is no longer only hypothetical. Two different release-condition implementations now exist:
+
+- [Evidence-gated milestone release testnet pilot](../research-notes/evidence-gated-release-testnet-pilot-2026-10-14.md): an automated approver checks anchored evidence before approve/release on a Multi-Release escrow, and refuses bad hashes, missing attestations, and wrong provider keys. Testnet only; decision-step code is private; evidence integrity is not proof of truth.
+- [Contract addresses as TW escrow roles](../research-notes/contract-addresses-as-tw-escrow-roles-testnet-2026-11-02.md): receipt-gated release and deadline refund on unmodified single-release Trustless Work wasm, with contracts holding escrow roles. Testnet only; multi-release untested.
+
+Related curated lesson: [settlement choice](../learnings/settlement-choice.md), [bounded authority](../learnings/bounded-authority.md).
+
+The original Open Questions above remain preserved. They are partly informed, not closed.
+
+## Remaining design decision
+
+What lifecycle and binding-identity semantics should every protected-payment implementation share across release policies—order/escrow correlation, fulfillment-evidence binding, approval versus signing, expiration/refund paths, and final-state inspection—without treating any one pilot as production-ready?

@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "repository": "Trustless-Work/agentic-escrow-research",
+  "title": "Agent-readable curated learnings",
+  "description": "Catalog of short research-supported lessons. Not production API or contract commitments. Read AGENTS.md first.",
+  "entryPoint": "AGENTS.md",
+  "readOrder": [
+    "decisions/ (none yet)",
+    "learn-index.json + learnings/",
+    "research-notes/, rfcs/, use-cases/ for full evidence"
+  ],
+  "labelDefinitions": {
+    "status": ["research-supported", "open", "superseded"],
+    "confidence": ["strong", "limited", "weak"],
+    "evidence": ["mainnet", "testnet", "implementation", "source-only", "private", "unverifiable"]
+  },
+  "learnings": [
+    {
+      "id": "settlement/direct-vs-escrow",
+      "question": "When should an agent pay directly versus use escrow?",
+      "summary": "Pay directly for small immediate digital access with no remaining condition. Use escrow for delayed, uncertain, evidence-gated, or disputable outcomes. Treat payment-infrastructure risk as a separate axis. Combined x402→escrow composition is not yet demonstrated.",
+      "status": "research-supported",
+      "evidence": ["mainnet", "testnet"],
+      "confidence": "limited",
+      "limitations": [
+        "No end-to-end x402 to Trustless Work escrow composition with shared IDs has been demonstrated.",
+        "MPP Charge comparison evidence is testnet-only; source note states no mainnet MPP Charge settlement.",
+        "Historical push-mode settled-not-delivered claim is unverifiable (hash prefix only)."
+      ],
+      "learnMore": "learnings/settlement-choice.md",
+      "examples": ["examples/direct-vs-escrow.json"],
+      "sources": [
+        "use-cases/nirium-direct-x402-payment.md",
+        "use-cases/nirium-bounded-milestone-payouts.md",
+        "rfcs/0003-x402-escrow-composition.md",
+        "research-notes/x402-vs-mpp-charge-testnet-2026-10-21.md",
+        "use-cases/open-stellar-skills-marketplace.md",
+        "research-notes/open-stellar-agentic-payment-evidence-2026-09-21.md"
+      ],
+      "rfcs": ["0003", "0001", "0004"]
+    },
+    {
+      "id": "authority/bounded-execution",
+      "question": "How should delegated agent authority stay safe?",
+      "summary": "Prefer narrow Level 3 execution inside human-fixed commitments: allowlisted objects, missing dangerous parameters, fail-closed policy, and optional contract-held roles so the agent never holds escrow role keys. Testnet contract-held roles are not a supported-product declaration.",
+      "status": "research-supported",
+      "evidence": ["mainnet", "testnet", "implementation", "private"],
+      "confidence": "limited",
+      "limitations": [
+        "Contract-held roles evidenced on single-release testnet only; multi-release untested; indexer coverage unverified; fee address observed not official.",
+        "Evidence-gated pilot decision-step code is private; final-rule allow path not shown on-chain; evidence integrity ≠ truth.",
+        "Pre-sign policy cannot stop same-process raw signer access or concurrent capacity races."
+      ],
+      "learnMore": "learnings/bounded-authority.md",
+      "examples": ["examples/permission-liveness-last-action.json"],
+      "sources": [
+        "use-cases/nirium-bounded-milestone-payouts.md",
+        "use-cases/nirium-treasury-missing-parameter.md",
+        "research-notes/evidence-gated-release-testnet-pilot-2026-10-14.md",
+        "research-notes/pre-sign-policy-hook-2026-10-21.md",
+        "research-notes/contract-addresses-as-tw-escrow-roles-testnet-2026-11-02.md",
+        "research-notes/fail-closed-payment-and-delivery-gates-2026-10-05.md",
+        "rfcs/0002-agent-authority-levels.md"
+      ],
+      "rfcs": ["0002", "0001"]
+    },
+    {
+      "id": "recovery/settled-not-delivered",
+      "question": "When payment settled but delivery failed, or signer state is ambiguous, what should an agent do?",
+      "summary": "Expose a minimal recovery envelope: chain vs read-model, settled vs delivered, retry safety, dependency health, caller capability, and permission vs liveness vs last confirmed action. Fail closed when gates cannot evaluate. RFC 0005 is supporting evidence for RFC 0004, not a competing design.",
+      "status": "research-supported",
+      "evidence": ["mainnet", "testnet", "implementation", "private", "unverifiable"],
+      "confidence": "limited",
+      "limitations": [
+        "No adopted cross-rail standard envelope yet; example field names are research vocabulary.",
+        "Historical push-mode failure is unverifiable from its source note.",
+        "Some fail-closed and liveness reporting fixes live in private repositories."
+      ],
+      "learnMore": "learnings/recovery-semantics.md",
+      "examples": [
+        "examples/payment-settled-not-delivered.json",
+        "examples/permission-liveness-last-action.json"
+      ],
+      "sources": [
+        "rfcs/0004-agent-facing-tool-schema.md",
+        "rfcs/0005-agent-facing-tool-schema-production-evidence.md",
+        "use-cases/nirium-direct-x402-payment.md",
+        "research-notes/x402-vs-mpp-charge-testnet-2026-10-21.md",
+        "research-notes/enabled-is-not-activity-2026-10-21.md",
+        "research-notes/fail-closed-payment-and-delivery-gates-2026-10-05.md",
+        "research-notes/pre-sign-policy-hook-2026-10-21.md",
+        "research-notes/agent-facing-interface-recovery-semantics-2026-09-21.md"
+      ],
+      "rfcs": ["0004"]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "examples/payment-settled-not-delivered",
+  "title": "Illustrative recovery envelope when payment settled but delivery failed",
+  "status": "research-vocabulary",
+  "normative": false,
+  "warning": "Field names are research vocabulary, not an approved API. The historical push-mode failure cited in the source note is unverifiable (hash prefix only).",
+  "envelope": {
+    "status": "failed",
+    "reasonCode": "SETTLED_NOT_DELIVERED",
+    "settlementState": "confirmed",
+    "deliveryState": "missing",
+    "transactionState": "confirmed",
+    "readModelState": "unknown_or_independent",
+    "retrySafe": false,
+    "dependencyState": "server_verification_or_delivery_failed",
+    "submissionMode": "client_push",
+    "nextValidActions": [
+      "reconcile_payment_hash",
+      "request_manual_recovery",
+      "do_not_blind_retry_same_payment"
+    ]
+  },
+  "lesson": "Ask who submits the transaction. Client-push settlement can finalize value before delivery authorization. Settled and delivered are separate facts.",
+  "evidenceClass": ["testnet", "unverifiable_historical_claim"],
+  "sources": [
+    "research-notes/x402-vs-mpp-charge-testnet-2026-10-21.md",
+    "research-notes/agent-facing-interface-recovery-semantics-2026-09-21.md",
+    "rfcs/0004-agent-facing-tool-schema.md"
+  ]
+}

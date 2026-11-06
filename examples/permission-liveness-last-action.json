@@ -1,0 +1,30 @@
+{
+  "id": "examples/permission-liveness-last-action",
+  "title": "Permission, liveness, and last confirmed action as distinct signer facts",
+  "status": "research-vocabulary",
+  "normative": false,
+  "warning": "Field names are research vocabulary. The reporting-fix commit referenced by the source note is private; on-chain inactivity and live heartbeat output are the public evidence.",
+  "envelope": {
+    "signerPermission": "enabled",
+    "permissionMeans": "allowlisted_or_authorized_to_act",
+    "signerLiveness": {
+      "alive": true,
+      "lastBeatAgeSec": 156,
+      "staleAfterSec": 1800
+    },
+    "lastConfirmedAction": {
+      "recorded": null,
+      "recordedMeans": "none_recorded_by_this_recorder_not_proof_of_never",
+      "chainIsSourceOfTruth": true
+    },
+    "interpretation": "Do not infer activity or recent settlement from permission alone. Silence without a heartbeat is ambiguous."
+  },
+  "relatedAuthorityLesson": "Bounded execution still needs inspectable signer health before an agent assumes an automated role will act.",
+  "evidenceClass": ["mainnet", "private_fix_commit"],
+  "sources": [
+    "research-notes/enabled-is-not-activity-2026-10-21.md",
+    "use-cases/nirium-treasury-missing-parameter.md",
+    "rfcs/0004-agent-facing-tool-schema.md",
+    "learnings/bounded-authority.md"
+  ]
+}

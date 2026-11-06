@@ -113,3 +113,21 @@ Any delegated economic operation should define:
 - Is restricting an agent to already-created, allowlisted economic commitments a reusable Level 3 primitive?
 - Which dangerous economic actions can be removed from the agent's action space entirely?
 - How should authority models separately represent exfiltration risk and economic-decision risk?
+
+## Evidence updates since this RFC
+
+Evidence since this Draft has strengthened the case for **narrow Level 3 execution** inside human-fixed commitments, while leaving the original Level 1/2 recommendation text above unchanged as historical Draft guidance.
+
+- Bounded approve/release on allowlisted, already-created escrows: [Nirium bounded milestone payouts](../use-cases/nirium-bounded-milestone-payouts.md).
+- Authority by missing parameter: [Nirium treasury missing parameter](../use-cases/nirium-treasury-missing-parameter.md).
+- Pre-sign policy with fail-closed outcomes and approval bound to exact authorization bytes: [pre-sign policy hook](../research-notes/pre-sign-policy-hook-2026-10-21.md) (implementation/tests; no production use claimed).
+- Contract-held Approver / Release Signer / Platform / Dispute Resolver on single-release testnet wasm: [contract-held roles](../research-notes/contract-addresses-as-tw-escrow-roles-testnet-2026-11-02.md). The agent never held a role key. Multi-release parity, official fee addresses, and indexer coverage of third-party deployments remain open.
+- Fail-open gates as authority failures: [fail-closed payment and delivery gates](../research-notes/fail-closed-payment-and-delivery-gates-2026-10-05.md).
+
+Curated lesson: [bounded authority](../learnings/bounded-authority.md).
+
+The Open Questions section above is preserved.
+
+## Remaining design decision
+
+How do we make a delegated authority scope explicit, enforceable, inspectable, and revocable—especially below the SDK layer—and should Trustless Work treat contract-held roles, including multi-release behavior, as a supported configuration rather than an incidental Soroban property?
